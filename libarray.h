@@ -21,7 +21,11 @@ class myclass{
 
 myclass* create(int,int,int);
 
-void printarray(myclass**, int);    
+void printarray(myclass**, int);
+
+void printclass(myclass*);
+    
+    
 }
 
 #endif

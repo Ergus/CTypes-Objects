@@ -12,5 +12,6 @@ libarray.so: libarray.cpp libarray.h
 clean:
 	rm -rf *.x *.so
 
-test: main.x
+test: main.x main.py
 	./$<
+	./main.py

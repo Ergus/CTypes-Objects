@@ -18,3 +18,8 @@ void printarray(myclass** array, int size){
         }    
 
     }
+
+void printclass(myclass* a){
+    cout<<"From C ";
+    a->print();
+    }
