@@ -38,18 +38,31 @@ class Myclass(C.Structure):
             ("y",C.c_int),
             ("z",C.c_int)
             ]
+    
     def myprint(self):
         print("From Python",self.x,self.y,self.z,sep=" ")
 
-# Creo una instancia de la clase local y se la paso a C        
-testclass = Myclass(3,2,1)
+    def __del__(self):
+        print("Deleting class",self,self.x,self.y,self.z,sep=" ")
 
-testclass.myprint() # llamo la funcion local
+libarray.create.restype= C.POINTER(Myclass)   # mejor asi desde el principio
+        
+# Creo una instancia de la clase local
+testclass = Myclass(3,2,1)
+testclass.myprint()                     # llamo la funcion local
 libarray.printclass(C.byref(testclass)) # se la paso a C
+
+#Creo una instancia de la clase local con el constructor de C
+testclass2 = libarray.create(6,5,4)
+testclass2.contents.myprint()                    # llamo la funcion local
+libarray.printclass(testclass2)         # se la paso a C
 
 # casteo uno de los punteros de la lista como la clase local
 # y llamo a la funcion que solo existe en la clase local
 
-casted= C.cast(mylist[0],C.POINTER(Myclass))[0] #Castea la clase como una de tipo local
+#Castea la clase como una de tipo local en el array
+# Dejo esta opcion solopara mostrar el cast
+casted= C.cast(mylist[0],C.POINTER(Myclass))[0] 
 casted.myprint()
+
 
